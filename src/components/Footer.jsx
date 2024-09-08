@@ -9,7 +9,7 @@ const Footer = () => {
         <div className="flex flex-wrap justify-between mb-8">
           {/* Company Info */}
           <div className="w-full md:w-1/4 mb-8 md:mb-0">
-            <h3 className="text-xl font-bold mb-4">Company</h3>
+            <h3 className="text-xl font-bold mb-4">Ecom.NG</h3>
             <p className="mb-4">
               <Link to="/about" className="hover:underline">About Us</Link>
             </p>
