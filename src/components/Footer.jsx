@@ -50,9 +50,9 @@ const Footer = () => {
           {/* Contact Details */}
           <div className="w-full md:w-1/4 mb-8 md:mb-0">
             <h3 className="text-xl font-bold mb-4">Contact Us</h3>
-            <p className="mb-4">123 Fashion St, Style City, SC 12345</p>
+            <p className="mb-4">123 Fashion St, Ogbomosho, Oyo State</p>
             <p className="mb-4">Phone: (123) 456-7890</p>
-            <p className="mb-4">Email: support@fashionstore.com</p>
+            <p className="mb-4">Email: support@ecom.ng</p>
             <p>
               <Link to="/contact" className="hover:underline">Contact Form</Link>
             </p>
