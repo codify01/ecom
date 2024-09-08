@@ -19,7 +19,7 @@ const NavBar = () => {
       <div className="container mx-auto flex justify-between items-center">
         <div className="flex items-center space-x-4">
           <Link to="/" className="text-white text-2xl font-bold">
-            MyStore
+            Ecom.NG
           </Link>
           <div className="hidden md:flex space-x-4">
             <Link to="/" className="text-gray-300 hover:text-white">

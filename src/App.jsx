@@ -8,6 +8,8 @@ import Header from './components/Header';
 import SignUpPage from './pages/SignUp';
 import LoginPage from './pages/Login';
 import CheckoutPage from './pages/Checkout';
+import Footer from './components/Footer';
+import NotFound from './pages/NotFound';
 // import Cart from './pages/Cart';
 
 function App() {
@@ -23,8 +25,9 @@ function App() {
         <Route path='/signup' element={<SignUpPage/>}/>
         <Route path='/login' element={<LoginPage/>}/>
         <Route path='/checkout' element={<CheckoutPage/>}/>
-        {/* <Route path="/cart" element={<Cart />} /> */}
+        <Route path="*" element={<NotFound />} />
       </Routes>
+      <Footer/>
     </Router>
   );
 }
