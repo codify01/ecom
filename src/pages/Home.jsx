@@ -1,23 +1,34 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import hero from '../assets/images/hero.jpg'
+import clothing from '../assets/images/clothing.jpg'
+import shoes from '../assets/images/shoes.jpg'
+import sunglasses from '../assets/images/sunglasses.jpg'
+import hat from '../assets/images/hat.jpg'
+import bag from '../assets/images/bag.jpg'
+import jewel from '../assets/images/jewel.jpg'
+
+
+
 
 const Home = () => {
   const categories = [
-    { name: 'Clothing', image: '/images/clothing.jpg', link: '/products?category=clothing' },
-    { name: 'Shoes', image: '/images/shoes.jpg', link: '/products?category=shoes' },
-    { name: 'Sunglasses', image: '/images/sunglasses.jpg', link: '/products?category=sunglasses' },
-    { name: 'Hats', image: '/images/hats.jpg', link: '/products?category=hats' },
-    { name: 'Jewelry', image: '/images/jewelry.jpg', link: '/products?category=jewelry' },
-    { name: 'Bags', image: '/images/bags.jpg', link: '/products?category=bags' },
+    { name: 'Clothing', image: clothing, link: '/products?category=clothing' },
+    { name: 'Shoes', image: shoes, link: '/products?category=shoes' },
+    { name: 'Sunglasses', image: sunglasses, link: '/products?category=sunglasses' },
+    { name: 'Hats', image: hat, link: '/products?category=hats' },
+    { name: 'Jewelry', image: jewel, link: '/products?category=jewelry' },
+    { name: 'Bags', image: bag, link: '/products?category=bags' },
   ];
 
   return (
     <div className="home-container">
       {/* Hero Section */}
-      <section className="hero-section bg-cover bg-center bg-gray-900 text-white h-screen flex flex-col justify-center items-center px-3" style={{ backgroundImage: 'url(/images/hero-bg.jpg)' }}>
+      <section className="hero-section bg-cover bg-center bg-gray-900 text-white h-screen flex flex-col justify-center items-center px-3" style={{ backgroundImage: `linear-gradient(#111827aa, #111827), url(${hero})`}}
+>
         <h1 className="text-6xl font-bold mb-4">Discover Your Style</h1>
         <p className="text-2xl mb-6">Exclusive Collections for Everyone</p>
-        <Link to="/products" className="bg-indigo-600 text-white px-10 py-4 rounded-full hover:bg-indigo-700 transition duration-300 ease-in-out">
+        <Link to="/products" className="bg-slate-600 text-white px-10 py-4 rounded-full hover:bg-slate-700 transition duration-300 ease-in-out">
           Shop Now
         </Link>
       </section>

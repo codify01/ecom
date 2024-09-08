@@ -44,14 +44,14 @@ const NavBar = () => {
           {!token ? (
             <Link
               to="/login"
-              className="text-gray-300 hover:text-white bg-slate-700 py-1 px-2 rounded-full font-medium"
+              className="text-gray-300 hover:text-white bg-slate-700 py-2 px-3 rounded-full"
             >
               Log In
             </Link>
           ) : (
             <button
               onClick={handleLogout}
-              className="text-gray-300 hover:text-white bg-red-600 py-1 px-2 rounded-full font-medium"
+              className="text-gray-300 hover:text-white bg-slate-950 py-2 px-3 rounded-full"
             >
               Log Out
             </button>

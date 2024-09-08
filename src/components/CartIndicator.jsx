@@ -7,7 +7,7 @@ const CartIndicator = () => {
   
   return (
     <Link to="/cart" className="relative">
-      <span className="text-white bg-slate-900 px-3 py-2 rounded-full">
+      <span className="text-white bg-slate-600 px-3 py-2 rounded-full">
         Cart ({cartItems.length})
       </span>
     </Link>
