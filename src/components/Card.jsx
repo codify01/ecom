@@ -9,7 +9,7 @@ const Card = ({ image, title, description, link, price }) => {
       </div>
       <h3 className="text-2xl font-bold mb-2 text-gray-900">{title}</h3>
       {description && <p className="text-gray-600 mb-4">{description}</p>}
-      {price && <p className="text-slate-600 font-bold text-lg mb-4">{price}</p>}
+      {price && <p className="text-slate-600 font-bold text-lg mb-4"><span>$</span> {price}</p>}
       {link && (
         <Link to={link} className="block bg-slate-600 text-white px-5 py-3 rounded-lg hover:bg-slate-700 transition-colors duration-300">
           View Details

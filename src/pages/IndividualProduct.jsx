@@ -44,7 +44,7 @@ const ProductPage = () => {
         {/* Product Details */}
         <div className="lg:w-1/2">
           <h1 className="text-4xl font-bold text-gray-900 mb-4">{product.name}</h1>
-          <p className="text-2xl text-slate-700 font-semibold mb-4">{product.price}</p>
+          <p className="text-2xl text-slate-700 font-semibold mb-4"><span>$</span>{product.price}</p>
           <p className="text-gray-700 mb-6">{product.description}</p>
           <div className="flex flex-col sm:flex-row sm:space-x-4">
             <button
