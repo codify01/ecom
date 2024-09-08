@@ -50,7 +50,7 @@ const Home = () => {
       <section className="hero-section bg-cover bg-center bg-gray-900 text-white h-screen flex flex-col justify-center items-center px-3" style={{ backgroundImage: `linear-gradient(#111827aa, #111827), url(${hero})` }}>
         <h1 className="text-6xl font-bold mb-4">Discover Your Style</h1>
         <p className="text-2xl mb-6">Exclusive Collections for Everyone</p>
-        <Link to="/products" className="bg-slate-600 text-white px-10 py-4 rounded-full hover:bg-slate-700 transition duration-300 ease-in-out">
+        <Link to="/products" className="bg-slate-600 text-white px-10 py-4 rounded-lg md:rounded-full hover:bg-slate-700 transition duration-300 ease-in-out">
           Shop Now
         </Link>
       </section>
