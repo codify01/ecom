@@ -26,7 +26,7 @@ const ProductsPage = () => {
     <div className="products-page container mx-auto my-10">
       {/* Category Selector */}
       <div className="flex justify-between items-center mb-10">
-        <h2 className="text-4xl font-bold text-white">
+        <h2 className="text-4xl font-bold">
           {category ? `Products in ${category}` : 'All Products'}
         </h2>
         <select
