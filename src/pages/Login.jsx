@@ -40,6 +40,10 @@ const LoginPage = () => {
       // Example: Pretend the user was authenticated successfully
       console.log('User logged in:', formData);
 
+      // Set a mock token in localStorage
+      const mockToken = 'yourAuthToken123'; // This would typically come from an API response
+      localStorage.setItem('authToken', mockToken);
+
       // Redirect to a protected route, e.g., dashboard
       navigate('/'); // Use navigate to redirect to dashboard or home page
     } catch (error) {

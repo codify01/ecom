@@ -1,8 +1,19 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import CartIndicator from './CartIndicator'; // Assuming CartIndicator is in the same directory
 
 const NavBar = () => {
+  const navigate = useNavigate();
+
+  // Check if the user is logged in by checking the token
+  const token = localStorage.getItem('authToken');
+
+  // Handle logout by removing the token and redirecting to the login page
+  const handleLogout = () => {
+    localStorage.removeItem('authToken');
+    navigate('/login');
+  };
+
   return (
     <nav className="bg-gray-800 p-4">
       <div className="container mx-auto flex justify-between items-center">
@@ -25,11 +36,28 @@ const NavBar = () => {
             </Link>
           </div>
         </div>
+
         <div className="flex items-center space-x-4 ml-auto">
-          <Link to="/signup" className="text-gray-300 hover:text-white bg-slate-700 py-1 px-2 rounded-full font-medium">
-            Sign Up
-          </Link>
-          <CartIndicator />
+        <CartIndicator />
+
+          {/* Conditionally render the Sign Up or Log Out button */}
+          {!token ? (
+            <Link
+              to="/login"
+              className="text-gray-300 hover:text-white bg-slate-700 py-1 px-2 rounded-full font-medium"
+            >
+              Log In
+            </Link>
+          ) : (
+            <button
+              onClick={handleLogout}
+              className="text-gray-300 hover:text-white bg-red-600 py-1 px-2 rounded-full font-medium"
+            >
+              Log Out
+            </button>
+          )}
+
+          {/* Cart Indicator */}
         </div>
       </div>
     </nav>

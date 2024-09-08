@@ -7,6 +7,7 @@ import CartPage from './pages/CartPage';
 import Header from './components/Header';
 import SignUpPage from './pages/SignUp';
 import LoginPage from './pages/Login';
+import CheckoutPage from './pages/Checkout';
 // import Cart from './pages/Cart';
 
 function App() {
@@ -21,6 +22,7 @@ function App() {
         <Route path="/cart" element={<CartPage />}/>
         <Route path='/signup' element={<SignUpPage/>}/>
         <Route path='/login' element={<LoginPage/>}/>
+        <Route path='/checkout' element={<CheckoutPage/>}/>
         {/* <Route path="/cart" element={<Cart />} /> */}
       </Routes>
     </Router>
