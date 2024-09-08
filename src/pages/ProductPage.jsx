@@ -7,14 +7,6 @@ const ProductsPage = () => {
   const searchParams = new URLSearchParams(location.search);
   const category = searchParams.get('category');
 
-  // Dummy product data
-  const allProducts = [
-    { id: 1, name: 'Leather Jacket', category: 'clothing', price: '$199', image: '/images/clothing.jpg' },
-    { id: 2, name: 'Casual Sneakers', category: 'shoes', price: '$89', image: '/images/shoes.jpg' },
-    { id: 3, name: 'Stylish Sunglasses', category: 'sunglasses', price: '$49', image: '/images/sunglasses.jpg' },
-    // Add more products here...
-  ];
-
   // Filter products by the selected category
   const filteredProducts = allProducts.filter(product => product.category === category);
 
