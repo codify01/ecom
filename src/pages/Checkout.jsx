@@ -1,10 +1,11 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { clearCart } from '../redux/cartSlice';
 
 const CheckoutPage = () => {
   const cart = useSelector((state) => state.cart.items);
+//   const user = useSelector((state) => state.auth.user); // Assume you have an auth slice in your Redux store
   const dispatch = useDispatch();
   const [shippingDetails, setShippingDetails] = useState({
     name: '',
@@ -17,6 +18,16 @@ const CheckoutPage = () => {
   const [errors, setErrors] = useState({});
   const [isProcessing, setIsProcessing] = useState(false);
   const navigate = useNavigate();
+
+  // Redirect to login page if not logged in
+  useEffect(() => {
+  const token = localStorage.getItem('authToken');
+
+    if (!token) {
+      alert('You need to be logged in to proceed with the checkout.');
+      navigate('/login'); // Redirect to login page if not logged in
+    }
+  }, [navigate]);
 
   // Calculate cart total
   const cartTotal = cart.reduce((total, item) => total + item.price * item.quantity, 0);
@@ -141,7 +152,7 @@ const CheckoutPage = () => {
           </div>
           <button
             type="submit"
-            className="w-full bg-indigo-600 text-white py-2 px-4 rounded hover:bg-indigo-700"
+            className="w-full bg-slate-600 text-white py-2 px-4 rounded hover:bg-slate-700"
             disabled={isProcessing}
           >
             {isProcessing ? 'Processing...' : 'Place Order'}

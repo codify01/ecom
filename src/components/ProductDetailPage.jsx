@@ -20,8 +20,8 @@ const ProductDetailPage = () => {
         <div className="md:ml-8">
           <h2 className="text-3xl font-bold mb-4">{product.name}</h2>
           <p className="text-lg mb-4">{product.description}</p>
-          <p className="text-indigo-600 text-2xl font-bold mb-4">{product.price}</p>
-          <button className="bg-indigo-600 text-white px-6 py-3 rounded hover:bg-indigo-700">
+          <p className="text-slate-600 text-2xl font-bold mb-4">{product.price}</p>
+          <button className="bg-slate-600 text-white px-6 py-3 rounded hover:bg-slate-700">
             Add to Cart
           </button>
         </div>

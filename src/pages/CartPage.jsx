@@ -27,7 +27,7 @@ const CartPage = () => {
         <div className="text-center">
           <p className="text-gray-700 mb-4">Your cart is empty.</p>
           <button
-            className="bg-indigo-600 text-white py-2 px-4 rounded hover:bg-indigo-700"
+            className="bg-slate-600 text-white py-2 px-4 rounded hover:bg-slate-700"
             onClick={() => navigate('/products')}
           >
             Continue Shopping
@@ -47,7 +47,7 @@ const CartPage = () => {
                   className="w-full h-48 object-cover rounded-md mb-4"
                 />
                 <h3 className="text-xl font-semibold mb-2">{item.name}</h3>
-                <p className="text-lg text-indigo-600 mb-2">
+                <p className="text-lg text-slate-600 mb-2">
                   ${item.price} x {item.quantity}
                 </p>
                 <div className="flex justify-center items-center space-x-4">
@@ -64,7 +64,7 @@ const CartPage = () => {
                     Remove
                   </button>
                   <button
-                    className="bg-indigo-600 text-white px-4 py-2 rounded hover:bg-indigo-700"
+                    className="bg-slate-600 text-white px-4 py-2 rounded hover:bg-slate-700"
                     onClick={() => dispatch(addToCart(item))}
                   >
                     +
