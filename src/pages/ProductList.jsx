@@ -30,7 +30,7 @@ const ProductsPage = () => {
           {category ? `Products in ${category}` : 'All Products'}
         </h2>
         <select
-          className="border-2 border-gray-300 rounded-lg p-3 focus:border-slate-600 focus:outline-none transition text-gray-100 bg-gray-900"
+          className="border-2 border-sec rounded-lg py-3 px-2 focus:border-none focus:outline-none transition text-gray-100 bg-pry"
           value={selectedCategory}
           onChange={handleCategoryChange}
         >

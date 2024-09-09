@@ -2,16 +2,21 @@ import React from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import CartIndicator from './CartIndicator';
 import logo from '../assets/images/logo.jpg'
+import { clearCart } from '../redux/cartSlice';
+import { useDispatch } from 'react-redux';
 
 const NavBar = () => {
-  const navigate = useNavigate();
+  const navigate = useNavigate()
+  const dispatch = useDispatch();
 
   // Check if the user is logged in by checking the token
   const token = localStorage.getItem('authToken');
 
-  // Handle logout by removing the token and redirecting to the login page
+
   const handleLogout = () => {
     localStorage.removeItem('authToken');
+    localStorage.removeItem('cart');
+    dispatch(clearCart());
     navigate('/login');
   };
 

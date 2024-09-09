@@ -62,16 +62,16 @@ const Footer = () => {
           <div className="w-full md:w-1/4 mb-8 md:mb-0">
             <h3 className="text-xl font-bold mb-4">Follow Us</h3>
             <div className="flex space-x-4">
-              <a href="https://facebook.com" target="_blank" rel="noopener noreferrer" className="text-white hover:text-gray-400">
+              <a href="https://facebook.com" target="_blank" rel="noopener noreferrer" className="text-white hover:text-sec">
                 <FaFacebookF size={24} />
               </a>
-              <a href="https://twitter.com" target="_blank" rel="noopener noreferrer" className="text-white hover:text-gray-400">
+              <a href="https://twitter.com" target="_blank" rel="noopener noreferrer" className="text-white hover:text-sec">
                 <FaTwitter size={24} />
               </a>
-              <a href="https://instagram.com" target="_blank" rel="noopener noreferrer" className="text-white hover:text-gray-400">
+              <a href="https://instagram.com" target="_blank" rel="noopener noreferrer" className="text-white hover:text-sec">
                 <FaInstagram size={24} />
               </a>
-              <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer" className="text-white hover:text-gray-400">
+              <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer" className="text-white hover:text-sec">
                 <FaLinkedinIn size={24} />
               </a>
             </div>
