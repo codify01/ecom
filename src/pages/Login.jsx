@@ -4,20 +4,13 @@ import { useToast } from '../hooks/toast';
 import axios from 'axios';
 
 const LoginPage = () => {
-  const [isLoading, setIsLoading] = useState(false)
-  const [data, setData] = useState()
-  const [apiError, setApiError] = useState(null)
-  const {showSuccess, showError} = useToast()
-
-  const handleSuccess = (message) => showSuccess(message)
-  const handleError = (err) => showError(err)
-
-  const [formData, setFormData] = useState({
-    email: '',
-    password: '',
-  })
-  const [errors, setErrors] = useState({})
-  const navigate = useNavigate()
+  const [isLoading, setIsLoading] = useState(false);
+  const [formData, setFormData] = useState({ email: '', password: '' });
+  const [errors, setErrors] = useState({});
+  const [data, setData] = useState(null);
+  const [apiError, setApiError] = useState(null);
+  const { showSuccess, showError } = useToast();
+  const navigate = useNavigate();
 
   // Handle input changes
   const handleChange = (e) => {
@@ -25,8 +18,8 @@ const LoginPage = () => {
     setFormData({
       ...formData,
       [name]: value,
-    })
-  }
+    });
+  };
 
   // Validate form data
   const validate = () => {
@@ -34,7 +27,7 @@ const LoginPage = () => {
     if (!formData.email) newErrors.email = 'Email is required';
     if (!formData.password) newErrors.password = 'Password is required';
     return newErrors;
-  }
+  };
 
   // Handle form submission
   const handleSubmit = async (e) => {
@@ -47,19 +40,20 @@ const LoginPage = () => {
 
     setIsLoading(true);
     try {
-      const response = await axios.post('https://ecom-backend-0gg0.onrender.com/api/login', formData)
-      const token = response.data.token
-      setData(response.data)
+      const response = await axios.post('https://ecom-backend-0gg0.onrender.com/api/login', formData);
+      const { token, message } = response.data;
+      setData(response.data); // Save response data to state
       setApiError(null);
-      handleSuccess(data.message)
-      localStorage.setItem('authToken', token)
-      navigate('/')
+      showSuccess(message); // Use the message from the response
+      localStorage.setItem('authToken', token);
+      navigate('/');
     } catch (error) {
-      setApiError(error.response?.data?.message || 'An error occurred while logging in try checking your connection')
-      handleError(apiError)
-      console.error('Error logging in:', error)
+      const errorMessage = error.response?.data?.message || 'An error occurred while logging in. Please check your connection.';
+      setApiError(errorMessage); // Set the error message to state
+      showError(errorMessage); // Show the error message
+      console.error('Error logging in:', error);
     } finally {
-      setIsLoading(false)
+      setIsLoading(false);
     }
   };
 
@@ -67,7 +61,6 @@ const LoginPage = () => {
     <div className="login-page container mx-auto my-10 px-4">
       <h1 className="text-4xl font-bold mb-6 text-center">Login</h1>
       
-      {/* Display success or error message */}
       <form onSubmit={handleSubmit} className="max-w-md mx-auto bg-white p-8 rounded-lg shadow-lg">
         <div className="mb-4">
           <label className="block text-gray-700 mb-2" htmlFor="email">Email</label>
