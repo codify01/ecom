@@ -1,7 +1,7 @@
 import axios from 'axios';
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { useToast } from '../hooks/toast';  // Custom toast hook
+import { useToast } from '../hooks/toast'; 
 
 const SignUpPage = () => {
   const [formData, setFormData] = useState({
@@ -15,7 +15,7 @@ const SignUpPage = () => {
   const [errors, setErrors] = useState({});
   const [isLoading, setIsLoading] = useState(false);
   const navigate = useNavigate();
-  const { showSuccess, showError} = useToast(); // Added dismissLoading
+  const { showSuccess, showError} = useToast();
 
   // Handle input changes
   const handleChange = (e) => {
@@ -143,7 +143,7 @@ const SignUpPage = () => {
         </div>
         <button
           type="submit"
-          className="w-full bg-slate-600 text-white py-2 px-4 rounded-md hover:bg-slate-700"
+          className="w-full bg-pry text-white py-2 px-4 rounded-md hover:bg-pry/90"
         >
           {isLoading ? 'Signing In...' : 'Sign Up'}
         </button>

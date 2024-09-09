@@ -47,10 +47,10 @@ const Home = () => {
   return (
     <div className="home-container">
       {/* Hero Section */}
-      <section className="hero-section bg-cover bg-center bg-gray-900 text-white h-screen flex flex-col justify-center items-start md:items-center px-3" style={{ backgroundImage: `linear-gradient(#111827aa, #111827), url(${hero})` }}>
+      <section className="hero-section bg-cover bg-center bg-gray-900 text-white h-screen flex flex-col justify-center items-start md:items-center px-3" style={{ backgroundImage: `linear-gradient(#d494e6aa, #9c1bb8), url(${hero})` }}>
         <h1 className="text-6xl font-bold mb-4">Discover Your Style</h1>
         <p className="text-2xl mb-6">Exclusive Collections for Everyone</p>
-        <Link to="/products" className="bg-slate-600 w-auto text-white px-10 py-4 rounded-lg md:rounded-full hover:bg-slate-700 transition duration-300 ease-in-out">
+        <Link to="/products" className="bg-pry w-auto text-white px-10 py-4 rounded-lg md:rounded-full hover:bg-sec transition duration-300 ease-in-out">
           Shop Now
         </Link>
       </section>
@@ -110,7 +110,7 @@ const Home = () => {
       </section>
 
       {/* Seasonal Sale Section */}
-      <section className="seasonal-sale-section bg-gray-900 text-white py-20">
+      <section className="seasonal-sale-section bg-pry/70 text-white py-20">
         <div className="container mx-auto px-4">
           <h2 className="text-5xl font-bold text-center mb-12">Seasonal Sale</h2>
           <div className="bg-cover bg-center h-72 rounded-lg shadow-lg relative" style={{ backgroundImage: `url(${seasonalSale})` }}>

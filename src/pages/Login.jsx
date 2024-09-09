@@ -88,14 +88,14 @@ const LoginPage = () => {
         </div>
         <button
           type="submit"
-          className="w-full bg-slate-600 text-white py-2 px-4 rounded-md hover:bg-slate-700"
+          className="w-full bg-pry text-white py-2 px-4 rounded-md hover:bg-pry/90"
           disabled={isLoading}
         >
           {isLoading ? 'Logging in...' : 'Login'}
         </button>
         <p className="mt-4 text-center">
           Don't have an account?{' '}
-          <Link to="/signup" className="text-slate-600 hover:text-slate-800">
+          <Link to="/signup" className="text-pry hover:text-pry/90">
             Sign Up
           </Link>
         </p>

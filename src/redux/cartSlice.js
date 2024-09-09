@@ -1,7 +1,9 @@
 import { createSlice } from '@reduxjs/toolkit';
+import { saveCartToLocalStorage } from '../utilities/localStorageutils';
+import { updateCartOnServer } from '../utilities/apiUtils';
 
 const initialState = {
-  items: []
+  items: JSON.parse(localStorage.getItem('cart')) || []
 };
 
 const cartSlice = createSlice({
@@ -11,24 +13,32 @@ const cartSlice = createSlice({
     addToCart: (state, action) => {
       const existingItem = state.items.find(item => item.id === action.payload.id);
       if (existingItem) {
-        existingItem.quantity += action.payload.quantity || 1; // Increment by given quantity or 1
+        existingItem.quantity += action.payload.quantity || 1
       } else {
-        state.items.push({ ...action.payload, quantity: action.payload.quantity || 1 });
+        state.items.push({ ...action.payload, quantity: action.payload.quantity || 1 })
       }
+      saveCartToLocalStorage(state.items);
+      updateCartOnServer(state.items);
     },
     removeFromCart: (state, action) => {
-      const existingItem = state.items.find(item => item.id === action.payload);
+      const existingItem = state.items.find(item => item.id === action.payload)
       if (existingItem.quantity > 1) {
-        existingItem.quantity -= 1; // Decrease quantity
+        existingItem.quantity -= 1; 
       } else {
-        state.items = state.items.filter(item => item.id !== action.payload); // Remove if quantity is 0
+        state.items = state.items.filter(item => item.id !== action.payload)
       }
+      saveCartToLocalStorage(state.items);
+      updateCartOnServer(state.items);
     },
     clearCartItem: (state, action) => {
-      state.items = state.items.filter(item => item.id !== action.payload);
+      state.items = state.items.filter(item => item.id !== action.payload)
+      saveCartToLocalStorage(state.items);
+      updateCartOnServer(state.items);
     },
     clearCart: (state) => {
-      state.items = [];
+      state.items = []
+      saveCartToLocalStorage([]);
+      updateCartOnServer([]);
     },
   }
 });

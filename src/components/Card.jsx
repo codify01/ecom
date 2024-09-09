@@ -11,7 +11,7 @@ const Card = ({ image, title, description, link, price }) => {
       {description && <p className="text-gray-600 mb-4">{description}</p>}
       {price && <p className="text-slate-600 font-bold text-lg mb-4"><span>$</span> {price}</p>}
       {link && (
-        <Link to={link} className="block bg-slate-600 text-white px-5 py-3 rounded-lg hover:bg-slate-700 transition-colors duration-300">
+        <Link to={link} className="block bg-pry text-white px-5 py-3 rounded-lg hover:bg-sec transition-colors duration-300">
           View Details
         </Link>
       )}

@@ -152,7 +152,7 @@ const CheckoutPage = () => {
           </div>
           <button
             type="submit"
-            className="w-full bg-slate-600 text-white py-2 px-4 rounded hover:bg-slate-700"
+            className="w-full bg-pry text-white py-2 px-4 rounded hover:bg-pry/90"
             disabled={isProcessing}
           >
             {isProcessing ? 'Processing...' : 'Place Order'}

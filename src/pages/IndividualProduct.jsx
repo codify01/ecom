@@ -48,13 +48,13 @@ const ProductPage = () => {
           <p className="text-gray-700 mb-6">{product.description}</p>
           <div className="flex flex-col sm:flex-row sm:space-x-4">
             <button
-              className="bg-slate-700 text-white px-6 py-3 rounded-lg shadow-md hover:bg-slate-800 transition duration-300 mb-4 sm:mb-0"
+              className="bg-pry text-white px-6 py-3 rounded-lg shadow-md hover:bg-pry/80 transition duration-300 mb-4 sm:mb-0"
               onClick={() => dispatch(addToCart(product))}
             >
               Add to Cart
             </button>
             <button
-              className="bg-gray-300 text-gray-800 px-6 py-3 rounded-lg shadow-md hover:bg-gray-400 transition duration-300"
+              className="bg-sec text-pry px-6 py-3 rounded-lg shadow-md hover:bg-sec/90 transition duration-300"
               onClick={handleNavigation}
             >
               Back to Products

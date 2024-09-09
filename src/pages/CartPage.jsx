@@ -27,7 +27,7 @@ const CartPage = () => {
         <div className="text-center">
           <p className="text-gray-700 mb-4">Your cart is empty.</p>
           <button
-            className="bg-slate-600 text-white py-2 px-4 rounded hover:bg-slate-700"
+            className="bg-pry text-white py-2 px-4 rounded hover:bg-pry/80"
             onClick={() => navigate('/products')}
           >
             Continue Shopping
@@ -64,7 +64,7 @@ const CartPage = () => {
                     Remove
                   </button>
                   <button
-                    className="bg-slate-600 text-white px-4 py-2 rounded hover:bg-slate-700"
+                    className="bg-pry text-white px-4 py-2 rounded hover:bg-pry/80"
                     onClick={() => dispatch(addToCart(item))}
                   >
                     +

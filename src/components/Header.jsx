@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import CartIndicator from './CartIndicator'; // Assuming CartIndicator is in the same directory
+import CartIndicator from './CartIndicator';
+import logo from '../assets/images/logo.jpg'
 
 const NavBar = () => {
   const navigate = useNavigate();
@@ -15,23 +16,23 @@ const NavBar = () => {
   };
 
   return (
-    <nav className="bg-gray-800 p-4">
+    <nav className="bg-gray-100 p-4">
       <div className="container mx-auto flex justify-between items-center">
         <div className="flex items-center space-x-4">
           <Link to="/" className="text-white text-2xl font-bold">
-            Ecom.NG
+           <img src={logo} alt="" className='w-12'/>
           </Link>
           <div className="hidden md:flex space-x-4">
-            <Link to="/" className="text-gray-300 hover:text-white">
+            <Link to="/" className="text-pry hover:text-sec">
               Home
             </Link>
-            <Link to="/products" className="text-gray-300 hover:text-white">
+            <Link to="/products" className="text-pry hover:text-sec">
               Products
             </Link>
-            <Link to="/about" className="text-gray-300 hover:text-white">
+            <Link to="/about" className="text-pry hover:text-sec">
               About Us
             </Link>
-            <Link to="/contact" className="text-gray-300 hover:text-white">
+            <Link to="/contact" className="text-pry hover:text-sec">
               Contact
             </Link>
           </div>
@@ -44,14 +45,14 @@ const NavBar = () => {
           {!token ? (
             <Link
               to="/login"
-              className="text-gray-300 hover:text-white bg-slate-700 py-2 px-3 rounded-full"
+              className="text-gray-300 hover:text-white bg-pry py-2 px-3 rounded-full"
             >
               Log In
             </Link>
           ) : (
             <button
               onClick={handleLogout}
-              className="text-gray-300 hover:text-white bg-slate-950 py-2 px-3 rounded-full"
+              className="text-gray-300 hover:text-white bg-pry py-2 px-3 rounded-full"
             >
               Log Out
             </button>
