@@ -10,12 +10,14 @@ import LoginPage from './pages/Login';
 import CheckoutPage from './pages/Checkout';
 import Footer from './components/Footer';
 import NotFound from './pages/NotFound';
+import { Toaster } from 'react-hot-toast';
 // import Cart from './pages/Cart';
 
 function App() {
   return (
     <Router>
       <Header/>
+      <Toaster position="top-center" reverseOrder={false} />
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/products" element={<ProductList />} />
