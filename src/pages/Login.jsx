@@ -1,7 +1,9 @@
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useToast } from '../hooks/toast';
+import { useDispatch } from "react-redux";
 import axios from 'axios';
+import { setUser } from '../redux/userSlice';
 
 const LoginPage = () => {
   const [isLoading, setIsLoading] = useState(false);
@@ -11,6 +13,7 @@ const LoginPage = () => {
   const [apiError, setApiError] = useState(null);
   const { showSuccess, showError } = useToast();
   const navigate = useNavigate();
+  const dispatch = useDispatch()
 
   // Handle input changes
   const handleChange = (e) => {
@@ -37,23 +40,24 @@ const LoginPage = () => {
       setErrors(validationErrors);
       return;
     }
-
     setIsLoading(true);
     try {
       const response = await axios.post('https://ecom-backend-0gg0.onrender.com/api/login', formData);
       const { token, message } = response.data;
-      setData(response.data); // Save response data to state
-      setApiError(null);
-      showSuccess(message); // Use the message from the response
-      localStorage.setItem('authToken', token);
-      navigate('/');
+      setData(response.data); 
+      setApiError(null)
+      showSuccess(message);
+      localStorage.setItem('user', JSON.stringify(response.data));
+      dispatch(setUser(data))
+      localStorage.setItem('authToken', token)
+      navigate('/')
     } catch (error) {
-      const errorMessage = error.response?.data?.message || 'An error occurred while logging in. Please check your connection.';
-      setApiError(errorMessage); // Set the error message to state
-      showError(errorMessage); // Show the error message
-      console.error('Error logging in:', error);
+      const errorMessage = error.response?.data?.message || 'An error occurred while logging in. Please check your connection.'
+      setApiError(errorMessage)
+      showError(errorMessage)
+      console.error('Error logging in:', error)
     } finally {
-      setIsLoading(false);
+      setIsLoading(false)
     }
   };
 

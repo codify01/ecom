@@ -37,7 +37,7 @@ const Home = () => {
         <div key={product.id} className="carousel-item bg-white rounded-lg shadow-lg p-4 flex-shrink-0 w-60">
           <img src={product.image} alt={product.name} className="w-full h-40 object-cover rounded-md mb-2" />
           <h3 className="text-xl text-black font-semibold mb-2">{product.name}</h3>
-          <p className="text-lg text-gray-700">${product.price.toFixed(2)}</p>
+          <p className="text-lg text-gray-900">${product.price.toFixed(2)}</p>
           <Link to={`/products/${product.id}`} className="text-indigo-600 hover:text-indigo-800 mt-2 block">View Details</Link>
         </div>
       ))}
@@ -47,7 +47,7 @@ const Home = () => {
   return (
     <div className="home-container">
       {/* Hero Section */}
-      <section className="hero-section bg-cover bg-center bg-gray-900 text-white h-screen flex flex-col justify-center items-start md:items-center px-3" style={{ backgroundImage: `linear-gradient(#d494e6aa, #9c1bb8), url(${hero})` }}>
+      <section className="hero-section bg-cover bg-center bg-gray-900 text-white h-screen flex flex-col justify-center items-start md:items-center px-3" style={{ backgroundImage: `linear-gradient(#9c1bb8aa, #9c1bb8), url(${hero})` }}>
         <h1 className="text-6xl font-bold mb-4">Discover Your Style</h1>
         <p className="text-2xl mb-6">Exclusive Collections for Everyone</p>
         <Link to="/products" className="bg-pry w-auto text-white px-10 py-4 rounded-lg md:rounded-full hover:bg-sec transition duration-300 ease-in-out">
