@@ -11,6 +11,7 @@ import CheckoutPage from './pages/Checkout';
 import Footer from './components/Footer';
 import NotFound from './pages/NotFound';
 import { Toaster } from 'react-hot-toast';
+import PaystackPage from './payment/Paystack';
 // import Cart from './pages/Cart';
 
 function App() {
@@ -27,6 +28,7 @@ function App() {
         <Route path='/signup' element={<SignUpPage/>}/>
         <Route path='/login' element={<LoginPage/>}/>
         <Route path='/checkout' element={<CheckoutPage/>}/>
+        <Route path='/payment' element={<PaystackPage/>}/>
         <Route path="*" element={<NotFound />} />
       </Routes>
       <Footer/>

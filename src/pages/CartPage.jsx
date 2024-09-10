@@ -2,21 +2,22 @@ import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { removeFromCart, clearCartItem, addToCart } from '../redux/cartSlice';
 import { useNavigate } from 'react-router-dom';
+import { useToast } from '../hooks/toast';
 
 const CartPage = () => {
   const cart = useSelector(state => state.cart.items);
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const { showError } = useToast()
 
   // Calculate total price
   const cartTotal = cart.reduce((total, item) => total + item.price * item.quantity, 0);
 
   const handleCheckout = () => {
     if (cart.length > 0) {
-      alert('Thank you for shopping with us!');
       navigate('/checkout');
     } else {
-      alert('Your cart is empty!');
+      showError('Your cart is empty!')
     }
   };
 

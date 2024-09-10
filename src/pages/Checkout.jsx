@@ -1,12 +1,10 @@
 import React, { useState, useEffect } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
+import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
-import { clearCart } from '../redux/cartSlice';
+import { useToast } from '../hooks/toast';
 
 const CheckoutPage = () => {
   const cart = useSelector((state) => state.cart.items);
-//   const user = useSelector((state) => state.auth.user); // Assume you have an auth slice in your Redux store
-  const dispatch = useDispatch();
   const [shippingDetails, setShippingDetails] = useState({
     name: '',
     email: '',
@@ -18,27 +16,23 @@ const CheckoutPage = () => {
   const [errors, setErrors] = useState({});
   const [isProcessing, setIsProcessing] = useState(false);
   const navigate = useNavigate();
-
-  // Redirect to login page if not logged in
+  const {showError} = useToast()
   useEffect(() => {
   const token = localStorage.getItem('authToken');
 
     if (!token) {
-      alert('You need to be logged in to proceed with the checkout.');
-      navigate('/login'); // Redirect to login page if not logged in
+      showError('You need to be logged in to proceed with the checkout.')
+      navigate('/login')
     }
   }, [navigate]);
 
-  // Calculate cart total
   const cartTotal = cart.reduce((total, item) => total + item.price * item.quantity, 0);
 
-  // Handle shipping details input
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     setShippingDetails({ ...shippingDetails, [name]: value });
   };
 
-  // Validate shipping form
   const validateShippingDetails = () => {
     const newErrors = {};
     if (!shippingDetails.name) newErrors.name = 'Name is required';
@@ -50,7 +44,6 @@ const CheckoutPage = () => {
     return newErrors;
   };
 
-  // Handle checkout submission
   const handleCheckout = async (e) => {
     e.preventDefault();
     const validationErrors = validateShippingDetails();
@@ -58,17 +51,11 @@ const CheckoutPage = () => {
       setErrors(validationErrors);
       return;
     }
-
-    // Simulate a successful payment process
     setIsProcessing(true);
-
-    // Simulate a delay for processing
     setTimeout(() => {
-      alert('Order placed successfully!');
-      dispatch(clearCart()); // Clear cart after successful order
-      navigate('/'); // Redirect to home page or thank you page
       setIsProcessing(false);
-    }, 2000); // Simulate a delay of 2 seconds
+      navigate('/payment')
+    }, 2000)
   };
 
   return (
@@ -155,7 +142,7 @@ const CheckoutPage = () => {
             className="w-full bg-pry text-white py-2 px-4 rounded hover:bg-pry/90"
             disabled={isProcessing}
           >
-            {isProcessing ? 'Processing...' : 'Place Order'}
+            {isProcessing ? 'Processing...' : 'Proceed to payment'}
           </button>
         </div>
       </form>
