@@ -50,6 +50,8 @@ const LoginPage = () => {
       localStorage.setItem('user', JSON.stringify(response.data));
       dispatch(setUser(data))
       localStorage.setItem('authToken', token)
+      console.log(response.data.user._id);
+      
       navigate('/')
     } catch (error) {
       const errorMessage = error.response?.data?.message || 'An error occurred while logging in. Please check your connection.'
