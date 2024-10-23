@@ -120,7 +120,7 @@ const SignUpPage = () => {
       showSuccess('Signup successful!');
       navigate('/login');
     } catch (error) {
-      const errorMessage = error.response?.data?.message || 'Error occurred during signup';
+      const errorMessage = error.message;
       showError(errorMessage);
       console.error('Error signing up:', error);
     } finally {
