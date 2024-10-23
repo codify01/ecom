@@ -114,7 +114,7 @@ const SignUpPage = () => {
     }
 
     try {
-      await axios.post(`${process.env.REACT_APP_API_URL}/api/register`, data, {
+      await axios.post(`https://ecom-backend-0gg0.onrender.com/api/register`, data, {
         headers: { 'Content-Type': 'multipart/form-data' },
       });
       showSuccess('Signup successful!');
