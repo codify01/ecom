@@ -13,6 +13,7 @@ const SignUpPage = () => {
     confirmPassword: '',
     image: null, // New state for face image upload
   });
+  
   const [errors, setErrors] = useState({});
   const [isLoading, setIsLoading] = useState(false);
   const [isCameraOpen, setIsCameraOpen] = useState(false); // State for controlling camera
@@ -112,21 +113,18 @@ const SignUpPage = () => {
       const blob = await fetch(capturedImage).then((res) => res.blob());
       data.append('image', blob, 'capturedImage.png');
     }
-
-    try {
-      await axios.post(`https://ecom-backend-0gg0.onrender.com/api/register`, data, {
+try {
+    const response = await axios.post(`https://ecom-backend-0gg0.onrender.com/api/register`, data, {
         headers: { 'Content-Type': 'multipart/form-data' },
-      });
-      showSuccess('Signup successful!');
-      navigate('/login');
-    } catch (error) {
-      const errorMessage = error.message;
-      showError(errorMessage);
-      console.error('Error signing up:', error);
-    } finally {
-      setIsLoading(false);
-    }
-  };
+    });
+    showSuccess('Signup successful!');
+    navigate('/login');
+} catch (error) {
+    const errorMessage = error.response?.data?.message || error.message;
+    showError(errorMessage);
+    console.error('Error signing up:', error.response?.data || error);
+}
+
 
   return (
     <div className="signup-page container mx-auto my-10 px-4">
@@ -260,7 +258,7 @@ const SignUpPage = () => {
               </button>
             </div>
           )}
-        </div>
+        </div> 
 
         {/* Submit Button */}
         <button
@@ -281,6 +279,6 @@ const SignUpPage = () => {
       )}
     </div>
   );
-};
+}};
 
 export default SignUpPage;
