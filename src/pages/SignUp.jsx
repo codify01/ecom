@@ -128,6 +128,7 @@ const SignUpPage = () => {
 			showSuccess('Signup successful!');
 			navigate('/login');
 		} catch (error) {
+			console.log(error);
 			const errorMessage = error.response?.data?.message || error.message;
 			showError(errorMessage);
 			console.error('Error signing up:', error.response?.data || error);

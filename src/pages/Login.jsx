@@ -52,6 +52,8 @@ const LoginPage = () => {
       localStorage.setItem('authToken', token);
       navigate('/');
     } catch (error) {
+      console.log(error);
+      
       const errorMessage = error.response?.data?.message || 'An error occurred while logging in. Please check your connection.';
       setApiError(errorMessage);
       showError(errorMessage);
@@ -116,6 +118,8 @@ const LoginPage = () => {
       localStorage.setItem('authToken', token);
       navigate('/');
     } catch (error) {
+      console.log(error);
+      
       const errorMessage = error.response?.data?.message || 'Face login failed. Please try again.';
       showError(errorMessage);
     } finally {
