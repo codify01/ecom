@@ -26,7 +26,7 @@ const CartPage = () => {
       <h2 className="text-4xl font-bold text-center mb-6">Your Cart</h2>
       {cart.length === 0 ? (
         <div className="text-center">
-          <p className="text-gray-700 mb-4">Your cart is empty.</p>
+          <p className="text-pry mb-4">Your cart is empty.</p>
           <button
             className="bg-pry text-white py-2 px-4 rounded hover:bg-pry/80"
             onClick={() => navigate('/products')}

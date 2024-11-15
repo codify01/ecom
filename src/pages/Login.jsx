@@ -101,7 +101,7 @@ const LoginPage = () => {
     setIsLoading(true);
 
     const formData = new FormData();
-    formData.append('image', capturedImage); // Add the captured image to the form data
+    formData.append('image', capturedImage)
 
     try {
       const response = await axios.post('https://ecom-backend-0gg0.onrender.com/api/login-with-face', formData, {
