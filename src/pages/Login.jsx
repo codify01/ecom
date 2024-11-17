@@ -1,4 +1,4 @@
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useToast } from '../hooks/toast';
 import { useDispatch } from 'react-redux';
@@ -14,11 +14,22 @@ const LoginPage = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
-  // For camera
+  // Camera-related states and refs
   const [isCameraOpen, setIsCameraOpen] = useState(false);
   const videoRef = useRef(null);
   const canvasRef = useRef(null);
   const [capturedImage, setCapturedImage] = useState(null);
+  const [uploadedImage, setUploadedImage] = useState(null); // State for manually uploaded image
+
+  // Cleanup camera stream when the component unmounts
+  useEffect(() => {
+    return () => {
+      if (videoRef.current && videoRef.current.srcObject) {
+        const tracks = videoRef.current.srcObject.getTracks();
+        tracks.forEach((track) => track.stop());
+      }
+    };
+  }, []);
 
   // Handle input changes
   const handleChange = (e) => {
@@ -34,6 +45,7 @@ const LoginPage = () => {
     return newErrors;
   };
 
+  // Submit login form
   const handleSubmit = async (e) => {
     e.preventDefault();
     const validationErrors = validate();
@@ -45,10 +57,11 @@ const LoginPage = () => {
 
     try {
       const response = await axios.post('https://ecom-backend-0gg0.onrender.com/api/login', formData);
-      const { token, message } = response.data;
+      const { token, message, user } = response.data;
+
       showSuccess(message);
-      localStorage.setItem('user', JSON.stringify(response.data));
-      dispatch(setUser(response.data.user));
+      localStorage.setItem('user', JSON.stringify(user));
+      dispatch(setUser(user));
       localStorage.setItem('authToken', token);
       navigate('/');
     } catch (error) {
@@ -62,16 +75,19 @@ const LoginPage = () => {
     }
   };
 
-  // Handle camera toggle
+  // Toggle camera
   const toggleCamera = () => {
-    setIsCameraOpen(!isCameraOpen);
-    if (!isCameraOpen) {
-      startCamera();
-    }
+    setIsCameraOpen((prev) => !prev);
+    if (!isCameraOpen) startCamera();
   };
 
   // Start the camera
   const startCamera = () => {
+    if (!navigator.mediaDevices?.getUserMedia) {
+      showError('Your browser does not support camera access.');
+      return;
+    }
+
     navigator.mediaDevices
       .getUserMedia({ video: true })
       .then((stream) => {
@@ -92,40 +108,79 @@ const LoginPage = () => {
     const imageData = canvasRef.current.toDataURL('image/png');
     setCapturedImage(imageData);
     setIsCameraOpen(false);
+
+    // Stop the camera stream
+    if (videoRef.current && videoRef.current.srcObject) {
+      const tracks = videoRef.current.srcObject.getTracks();
+      tracks.forEach((track) => track.stop());
+    }
   };
 
-  // Submit captured image for face verification login
-  const handleFaceLogin = async () => {
-    if (!capturedImage) {
-      showError('No image captured for face login.');
-      return;
+  // Handle image file upload
+  const handleImageUpload = (e) => {
+    const file = e.target.files[0];
+    if (file) {
+      const reader = new FileReader();
+      reader.onload = () => {
+        setUploadedImage(reader.result); // Save the uploaded image as a base64 string
+      };
+      reader.readAsDataURL(file);
     }
+  };
+
+  // Submit captured or uploaded image for face verification login
+  const handleFaceLogin = async () => {
+    const imageToSend = capturedImage || uploadedImage;
+
+    if (!imageToSend) {
+        showError('No image provided for face login. Please capture or upload an image.');
+        return;
+    }
+
     setIsLoading(true);
 
-    const formData = new FormData();
-    formData.append('image', capturedImage)
-
     try {
-      const response = await axios.post('https://ecom-backend-0gg0.onrender.com/api/login-with-face', formData, {
-        headers: {
-          'Content-Type': 'multipart/form-data',
-        },
-      });
-      const { token, user, message } = response.data;
-      showSuccess(message);
-      localStorage.setItem('user', JSON.stringify(user));
-      dispatch(setUser(user));
-      localStorage.setItem('authToken', token);
-      navigate('/');
+        // Check if the image is base64 or a file
+        const formData = new FormData();
+
+        if (imageToSend.startsWith('data:image')) {
+            // If base64, convert it to a Blob
+            const byteString = atob(imageToSend.split(',')[1]);
+            const mimeString = imageToSend.split(',')[0].split(':')[1].split(';')[0];
+            const ab = new ArrayBuffer(byteString.length);
+            const ia = new Uint8Array(ab);
+            for (let i = 0; i < byteString.length; i++) {
+                ia[i] = byteString.charCodeAt(i);
+            }
+            const blob = new Blob([ab], { type: mimeString });
+            formData.append('image', blob, 'face-image.png');
+        } else {
+            // If file, append directly
+            formData.append('image', imageToSend);
+        }
+
+        const response = await axios.post('https://ecom-backend-0gg0.onrender.com/api/login-with-face', formData, {
+            headers: {
+                'Content-Type': 'multipart/form-data',
+            },
+        });
+
+        const { token, user, message } = response.data;
+
+        showSuccess(message);
+        localStorage.setItem('user', JSON.stringify(user));
+        dispatch(setUser(user));
+        localStorage.setItem('authToken', token);
+        navigate('/');
     } catch (error) {
       console.log(error);
       
-      const errorMessage = error.response?.data?.message || 'Face login failed. Please try again.';
-      showError(errorMessage);
+        const errorMessage = error.response?.data?.message || 'Face login failed. Please try again.';
+        showError(errorMessage);
     } finally {
-      setIsLoading(false);
+        setIsLoading(false);
     }
-  };
+};
 
   return (
     <div className="login-page container mx-auto my-10 px-4">
@@ -175,42 +230,48 @@ const LoginPage = () => {
       {/* Face Login Section */}
       <div className="mt-10">
         <h2 className="text-2xl font-bold text-center">Or Login with Face Recognition</h2>
-        <div className="mt-4 flex justify-center">
-          {isCameraOpen ? (
-            <div>
-              <video ref={videoRef} width="640" height="480" autoPlay className="border border-gray-300"></video>
-              <canvas ref={canvasRef} width="640" height="480" style={{ display: 'none' }}></canvas>
+        <div className="mt-4 flex flex-col items-center">
+          <div className="flex space-x-4">
+            {isCameraOpen ? (
+              <div>
+                <video ref={videoRef} width="640" height="480" autoPlay className="border border-gray-300"></video>
+                <canvas ref={canvasRef} width="640" height="480" style={{ display: 'none' }}></canvas>
+                <button
+                  onClick={captureImage}
+                  className="mt-4 bg-pry text-white py-2 px-4 rounded-md hover:bg-pry/90"
+                >
+                  Capture Image
+                </button>
+              </div>
+            ) : (
               <button
-                onClick={captureImage}
-                className="mt-4 bg-pry text-white py-2 px-4 rounded-md hover:bg-pry/90"
+                onClick={toggleCamera}
+                className="bg-pry text-white py-2 px-4 rounded-md hover:bg-pry/90"
               >
-                Capture Image
+                {isCameraOpen ? 'Close Camera' : 'Open Camera'}
               </button>
-            </div>
-          ) : (
-            <button
-              onClick={toggleCamera}
-              className="bg-pry text-white py-2 px-4 rounded-md hover:bg-pry/90"
-            >
-              {isCameraOpen ? 'Close Camera' : 'Open Camera'}
-            </button>
-          )}
+            )}
+          </div>
+          <div className="mt-4">
+            <label className="block text-gray-700 mb-2">Upload Image</label>
+            <input type="file" accept="image/*" onChange={handleImageUpload} />
+          </div>
         </div>
 
-        {/* Display captured image and login */}
-        {capturedImage && (
+        {/* Display captured or uploaded image */}
+        {capturedImage || uploadedImage ? (
           <div className="mt-6 text-center">
-            <h3 className="text-lg font-semibold">Captured Image:</h3>
-            <img src={capturedImage} alt="Captured" className="mx-auto mt-2" />
+            <h3 className="text-lg font-semibold">Preview Image:</h3>
+            <img src={capturedImage || uploadedImage} alt="Preview" className="mx-auto mt-2" />
             <button
               onClick={handleFaceLogin}
               className="mt-4 bg-pry text-white py-2 px-4 rounded-md hover:bg-pry/90"
               disabled={isLoading}
             >
-              {isLoading ? 'Verifying Face...' : 'Login with Face'}
+              {isLoading ? 'Verifying Image...' : 'Login with Face'}
             </button>
           </div>
-        )}
+        ) : null}
       </div>
     </div>
   );
