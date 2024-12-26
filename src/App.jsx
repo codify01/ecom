@@ -12,6 +12,8 @@ import Footer from './components/Footer';
 import NotFound from './pages/NotFound';
 import { Toaster } from 'react-hot-toast';
 import PaystackPage from './payment/Paystack';
+import ForgotPasswordPage from './pages/ForgetPassword';
+import ResetPasswordPage from './pages/ResetPassword';
 // import Cart from './pages/Cart';
 
 function App() {
@@ -29,6 +31,18 @@ function App() {
         <Route path='/login' element={<LoginPage/>}/>
         <Route path='/checkout' element={<CheckoutPage/>}/>
         <Route path='/payment' element={<PaystackPage/>}/>
+        <Route
+          path="/forgot-password"
+          element={
+              <ForgotPasswordPage />
+          }
+        />
+         <Route
+          path="/reset-password/:token"
+          element={
+              <ResetPasswordPage />
+          }
+        />
         <Route path="*" element={<NotFound />} />
       </Routes>
       <Footer/>

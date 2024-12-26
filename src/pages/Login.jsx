@@ -4,9 +4,11 @@ import { useToast } from '../hooks/toast';
 import { useDispatch } from 'react-redux';
 import axios from 'axios';
 import { setUser } from '../redux/userSlice';
+import { FaEye, FaEyeSlash } from 'react-icons/fa';
 
 const LoginPage = () => {
   const [isLoading, setIsLoading] = useState(false);
+  const [visible, setVisible] = useState(false);
   const [formData, setFormData] = useState({ email: '', password: '' });
   const [errors, setErrors] = useState({});
   const [apiError, setApiError] = useState(null);
@@ -202,16 +204,27 @@ const LoginPage = () => {
         </div>
         <div className="mb-4">
           <label className="block text-gray-700 mb-2" htmlFor="password">Password</label>
-          <input
-            type="password"
-            id="password"
-            name="password"
-            value={formData.password}
-            onChange={handleChange}
-            className="w-full px-3 py-2 border border-gray-300 rounded-md"
-          />
+          <div className="relative">
+            <input
+              type={visible ? "text" : "password"}
+              id="password"
+              name="password"
+              value={formData.password}
+              onChange={handleChange}
+              className="w-full px-3 py-2 border border-gray-300 rounded-md pr-10"
+            />
+            <span
+              className="absolute inset-y-0 right-2 flex items-center cursor-pointer text-gray-500"
+              onClick={() => setVisible((prev) => !prev)}
+            >
+              {visible ? <FaEyeSlash className="text-xl" /> : <FaEye className="text-xl" />}
+            </span>
+          </div>
           {errors.password && <p className="text-red-500 text-sm">{errors.password}</p>}
         </div>
+        <Link to="/forgot-password" className="text-sm text-pry hover:underline">
+              Forgot Password?
+            </Link>
         <button
           type="submit"
           className="w-full bg-pry text-white py-2 px-4 rounded-md hover:bg-pry/90"
