@@ -265,10 +265,10 @@ const LoginPage = () => {
               </button>
             )}
           </div>
-          <div className="mt-4">
+{/*           <div className="mt-4">
             <label className="block text-gray-700 mb-2">Upload Image</label>
             <input type="file" accept="image/*" onChange={handleImageUpload} />
-          </div>
+          </div> */}
         </div>
 
         {/* Display captured or uploaded image */}
