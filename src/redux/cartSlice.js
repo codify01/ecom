@@ -2,7 +2,10 @@ import { createSlice } from '@reduxjs/toolkit';
 import { saveCartToLocalStorage } from '../utilities/localStorageutils';
 import { updateCartOnServer } from '../utilities/apiUtils';
 
-const user = JSON.parse(localStorage.getItem('user'))
+const user = await JSON.parse(localStorage.getItem('user'))
+
+const userId = user ? user?.user?.id : null;
+
 
 const initialState = {
   items: JSON.parse(localStorage.getItem('cart')) || []
@@ -20,7 +23,7 @@ const cartSlice = createSlice({
         state.items.push({ ...action.payload, quantity: action.payload.quantity || 1 })
       }
       saveCartToLocalStorage(state.items)
-      updateCartOnServer(state.items, user.user._id)
+      updateCartOnServer(state.items, userId)
     },
     removeFromCart: (state, action) => {
       const existingItem = state.items.find(item => item.id === action.payload)
@@ -30,12 +33,12 @@ const cartSlice = createSlice({
         state.items = state.items.filter(item => item.id !== action.payload)
       }
       saveCartToLocalStorage(state.items)
-      updateCartOnServer(state.items, user.user._id)
+      updateCartOnServer(state.items, userId)
     },
     clearCartItem: (state, action) => {
       state.items = state.items.filter(item => item.id !== action.payload)
       saveCartToLocalStorage(state.items)
-      updateCartOnServer(state.items, user.user._id)
+      updateCartOnServer(state.items,userId)
     },
     clearCart: (state) => {
       state.items = []
